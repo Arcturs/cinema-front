@@ -4,7 +4,7 @@ import userAPI from "./UserAPI";
 class ScreenAPI {
 
     getAllScreens(onSuccess: any, onFail: any, params: {[key: string]: any}) {
-        axios.get(`${process.env.API_URL}/screen`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/screen`, {
             params: params
         })
             .then(onSuccess)
@@ -12,13 +12,13 @@ class ScreenAPI {
     }
 
     getScreenInfo(onSuccess: any, onFail: any, screenId: any) {
-        axios.get(`${process.env.API_URL}/screen/${screenId}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/screen/${screenId}`)
             .then(onSuccess)
             .catch(onFail);
     }
 
     createScreen(onSuccess: any, onFail: any, data: {[key: string]: any}) {
-        axios.post(`${process.env.API_URL}/screen`, data, {
+        axios.post(`${process.env.REACT_APP_API_URL}/screen`, data, {
             headers: {
                 Authorization: userAPI.authHeader()
             }

@@ -4,7 +4,7 @@ import userAPI from "./UserAPI";
 class MovieAPI {
 
     getAllMovies(onSuccess: any, onFail: any, params: { [key: string]: any }) {
-        axios.get(`${process.env.API_URL}/movie`,
+        axios.get(`${process.env.REACT_APP_API_URL}/movie`,
             {
                 params: params
             })
@@ -13,13 +13,13 @@ class MovieAPI {
     }
 
     getMovieInfo(onSuccess: any, onFail: any, movieId: any) {
-        axios.get(`${process.env.API_URL}/movie/${movieId}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/movie/${movieId}`)
             .then(onSuccess)
             .catch(onFail);
     }
 
     createMovie(onSuccess: any, onFail: any, data: {[key: string]: any}) {
-        axios.post(`${process.env.API_URL}/movie`, data, {
+        axios.post(`${process.env.REACT_APP_API_URL}/movie`, data, {
             headers: {
                 Authorization: userAPI.authHeader()
             }
@@ -29,7 +29,7 @@ class MovieAPI {
     }
 
     updateMovie(onSuccess: any, onFail: any, movieId: any, data: {[key: string]: any}) {
-        axios.put(`${process.env.API_URL}/movie/${movieId}`, data, {
+        axios.put(`${process.env.REACT_APP_API_URL}/movie/${movieId}`, data, {
             headers: {
                 Authorization: userAPI.authHeader()
             }
@@ -39,7 +39,7 @@ class MovieAPI {
     }
 
     deleteMovie(onSuccess: any, onFail: any, movieId: any) {
-        axios.delete(`${process.env.API_URL}/movie/${movieId}`, {
+        axios.delete(`${process.env.REACT_APP_API_URL}/movie/${movieId}`, {
             headers: {
                 Authorization: userAPI.authHeader()
             }
@@ -49,11 +49,11 @@ class MovieAPI {
     }
 
     getPosterUrl(movieId: any) {
-        return `${process.env.API_URL}/movie/${movieId}/poster`;
+        return `${process.env.REACT_APP_API_URL}/movie/${movieId}/poster`;
     }
 
     getSessionsForMovie(onSuccess: any, onFail: any, movieId: any, params: {[key: string]: any}) {
-        axios.get(`${process.env.API_URL}/movie/${movieId}/sessions`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/movie/${movieId}/sessions`, {
             params: params
         })
             .then(onSuccess)
