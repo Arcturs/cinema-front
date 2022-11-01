@@ -16,7 +16,11 @@ const MenuComponent = () => {
         ]
     });
 
-    React.useEffect(() => getCredentials());
+    React.useEffect(() => {
+        if (!Boolean(user.name)) {
+            getCredentials();
+        }
+    });
 
     const getCredentials = () => {
         UserAPI.getCredentials(success, failure);
@@ -79,14 +83,14 @@ const MenuComponent = () => {
                 </ul>
 
                 <div className="col-md-3 text-end">
-                    {user.roles && user.roles.includes({
+                    {user.roles && user.roles.some(element => JSON.stringify(element) === JSON.stringify({
                         roleId: 1,
-                        roleName: 'USER'
-                    })
-                        ? user.roles && user.roles.includes({
+                        roleName: "USER"
+                    }))
+                        ? user.roles && user.roles.some(element => JSON.stringify(element) === JSON.stringify({
                             roleId: 2,
-                            roleName: 'ADMIN'
-                        })
+                            roleName: "ADMIN"
+                        }))
                             ? adminComponent
                             : authorizedComponent
                         : unauthorizedComponent}
