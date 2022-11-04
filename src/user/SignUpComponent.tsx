@@ -44,7 +44,7 @@ const SignUpComponent = () => {
 
     const success = (response: any) => {
         localStorage.setItem('token', response.data.tokens.access_token);
-        localStorage.setItem('refresh_token', response.data.tokens.refresh_token);
+        localStorage.setItem('refreshToken', response.data.tokens.refresh_token);
     }
 
     const failure = (error: any) => {
