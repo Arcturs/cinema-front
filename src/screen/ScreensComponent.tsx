@@ -1,30 +1,19 @@
 import React from 'react';
 import {
     Alert,
-    Box, Button, Dialog, DialogActions, DialogContent, DialogTitle,
-    Fab,
-    FormControl,
+    Box,
     Grid,
-    IconButton,
-    InputBase,
-    InputLabel, Link as LinkMui,
-    MenuItem,
-    Pagination,
-    Paper,
-    Select,
-    SelectChangeEvent, Snackbar, StyledEngineProvider, TextField,
+    Link as LinkMui,
+    Snackbar,
+    StyledEngineProvider,
     Typography
 } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-import AddIcon from '@mui/icons-material/Add';
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import querystring from 'query-string';
-import auditoriumApi from "../../server/AuditoriumApi";
-import urlBuilder from "../../server/UrlBuilder";
-import CreateAuditoriumComponent from "./CreateAuditoriumComponent";
-import PaginationComponent from "../../menu/PaginationComponent";
 import screenAPI from "../API/ScreenAPI";
 import tokenHelper from "../helpers/TokenHelper";
+import PaginationComponent from "../main/PaginationComponent";
+import urlBuilder from "../helpers/UrlBuilder";
 
 const ScreensComponent = () => {
     const [state, setState] = React.useState({
@@ -82,7 +71,7 @@ const ScreensComponent = () => {
             navigation(0);
             return;
         }
-        setErrorMessage(error.response.data.error.message);
+        setErrorMessage(error.response.data.message);
         setOpenError(true);
     }
 

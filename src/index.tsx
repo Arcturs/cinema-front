@@ -9,6 +9,7 @@ import SignUpComponent from "./user/SignUpComponent";
 import MoviesComponent from "./movie/MoviesComponent";
 import MovieComponent from "./movie/MovieComponent";
 import ScreensComponent from "./screen/ScreensComponent";
+import ScreenComponent from "./screen/ScreenComponent";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const pathname = window.location.pathname;
@@ -29,6 +30,7 @@ root.render(
             <Route path="movie/:movieId/" element={<MovieComponent/>}/>
 
             <Route path="screen" element={<ScreensComponent/>}/>
+            <Route path="screen/:screenId/" element={<ScreenComponent/>}/>
 
             <Route element={<ErrorComponent/>}/>
         </Routes>
