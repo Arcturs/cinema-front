@@ -32,7 +32,7 @@ const CreateScreenComponent = (setErrorMessage: any, setOpenError: any, setAcces
             seats: ""
         });
         setOpenCreate(false);
-        navigation(`screen/${response.data.screenId}`);
+        navigation(`/screen`);
         navigation(0);
     }
 

@@ -113,7 +113,7 @@ const ScreensComponent = () => {
                                     <Grid className="grid" key={screen.screenId}>
                                         <Grid item>
                                             <Typography variant="h5" className="link-element-in-grid">
-                                                <Link to={`screen/${screen.screenId}`}
+                                                <Link to={`/screen/${screen.screenId}`}
                                                       className="link">
                                                     Screen {screen.screenNumber}
                                                 </Link>

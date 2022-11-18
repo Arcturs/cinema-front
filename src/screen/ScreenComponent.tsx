@@ -17,9 +17,14 @@ const ScreenComponent = () => {
         screenNumber: "",
         rows: "",
         seats: "",
-        seatsSet: [] as any
+        seatsSet: [{
+            seatId: "",
+            row: "",
+            seat: ""
+        }]
     });
     const [keys, setKeys] = React.useState([] as any);
+    const [seats, setSeats] = React.useState([] as any);
     const [errorMessage, setErrorMessage] = React.useState(null);
     const [accessMessage, setAccessMessage] = React.useState(null);
     const [openError, setOpenError] = React.useState(false);
@@ -32,7 +37,14 @@ const ScreenComponent = () => {
 
     const success = (response: any) => {
         setState(response.data);
-        setKeys([...Object.getOwnPropertyNames(response.data.seatsSet)]);
+        let map = response.data.seatsSet.reduce(function (r: { [x: string]: any[]; }, a: { row: string | number; }) {
+            r[a.row] = r[a.row] || [];
+            r[a.row].push(a);
+            return r;
+        }, Object.create(null));
+        setSeats(map);
+        setKeys([...Object.getOwnPropertyNames(map)]);
+        console.log(map);
     }
 
     const failure = (error: any) => {
@@ -87,7 +99,7 @@ const ScreenComponent = () => {
                                             color="primary">
                                     {key}
                                 </Typography>
-                                {state.seatsSet[key]
+                                {seats[key]
                                     .sort((a: any, b: any) => a.seatId > b.seatId ? -1 : 1)
                                     .map((seat: { [key: string]: any }) => {
                                         return (
