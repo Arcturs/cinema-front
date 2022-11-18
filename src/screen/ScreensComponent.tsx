@@ -14,6 +14,7 @@ import screenAPI from "../API/ScreenAPI";
 import tokenHelper from "../helpers/TokenHelper";
 import PaginationComponent from "../main/PaginationComponent";
 import urlBuilder from "../helpers/UrlBuilder";
+import CreateScreenComponent from "./CreateScreenComponent";
 
 const ScreensComponent = () => {
     const [state, setState] = React.useState({
@@ -79,8 +80,7 @@ const ScreensComponent = () => {
         getAllScreens()
     }, []);
 
-    const createScreenComponent = CreateScreenComponent(setErrorMessage, setOpenError, setAccessMessage,
-        setOpenAccess);
+    const createScreenComponent = CreateScreenComponent(setErrorMessage, setOpenError, setAccessMessage, setOpenAccess);
     const paginationComponent = PaginationComponent(state.paging, adjustQueryString);
 
     return (

@@ -22,6 +22,7 @@ const ResourceRemovalDialogComponent = (deleteComponent: any, id: any, component
     const failureDelete = (error: any) => {
         setOpenDelete(false);
         if (error.response.status === 403) {
+            //TODO: refresh token and if failure do this
             setAccessMessage(error.response.data);
             setOpenAccess(true);
             localStorage.setItem('token', "");
