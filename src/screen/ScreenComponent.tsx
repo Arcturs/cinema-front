@@ -44,7 +44,6 @@ const ScreenComponent = () => {
         }, Object.create(null));
         setSeats(map);
         setKeys([...Object.getOwnPropertyNames(map)]);
-        console.log(map);
     }
 
     const failure = (error: any) => {

@@ -172,9 +172,9 @@ const SessionsComponent = () => {
                                     <Grid className="grid" key={session.movieSessionId}>
                                         <Grid item>
                                             <Typography variant="h5" className="link-element-in-grid">
-                                                <Link to={`/session/${session.movieSessionId}`} className="link">
+                                                <Link to={`/session/${session.sessionId}`} className="link">
                                                     Movie: {session.movie.title},
-                                                    Date and Time: {session.movieStartDate} {session.movieStartTime}
+                                                    Date and Time: {session.startTime} {session.endTime}
                                                 </Link>
                                             </Typography>
                                         </Grid>
