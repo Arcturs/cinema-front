@@ -9,6 +9,7 @@ import sessionAPI from "../API/SessionAPI";
 import ResourceRemovalDialogComponent from "../main/ResourceRemovalDialogComponent";
 import tokenHelper from "../helpers/TokenHelper";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
+import UpdateSessionComponent from "./UpdateSessionComponent";
 
 const SessionComponent = () => {
 

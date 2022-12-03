@@ -159,7 +159,7 @@ const CreateSessionComponent = (setErrorMessage: any, setOpenError: any, setAcce
                                       options={screens} onChange={changeScreenId}
                                       className="text-field d-flex justify-content-center"
                                       renderInput={(params) => (
-                                          <TextField {...params} label="Auditorium number"/>
+                                          <TextField {...params} label="Screen number"/>
                                       )}/>
                         {validationError.screenId
                             ? <Alert severity="warning" className="alert">{validationError.screenId}</Alert>
