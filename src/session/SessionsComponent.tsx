@@ -27,6 +27,7 @@ const SessionsComponent = () => {
         }
     });
     const [movieId, setMovieId] = React.useState<any | null>(null);
+    const [movie, setMovie] = React.useState(null);
 
     const [errorMessage, setErrorMessage] = React.useState(null);
     const navigation = useNavigate();
@@ -47,6 +48,9 @@ const SessionsComponent = () => {
             movieId: parsed.movieId ? parsed.movieId : movieId
         };
 
+        if (params.movieId) {
+            getMovie(params.movieId);
+        }
         sessionAPI.getActualSessions(successGet, failureGet, params);
     }
 
@@ -70,6 +74,15 @@ const SessionsComponent = () => {
         ];
         navigation(`/session?${urlBuilder.buildQueryParams(params)}`);
         navigation(0);
+    }
+
+    const getMovie = (id: any) => {
+        setMovieId(id);
+        movieAPI.getMovieInfo(successGetMovie, failureGet, id);
+    }
+
+    const successGetMovie = (response: any) => {
+        setMovie(response.data);
     }
 
     const successGet = (response: any) => {
@@ -111,7 +124,7 @@ const SessionsComponent = () => {
         }
     }
 
-    const changeMovieId = (event: any, newValue: any) => {
+    const changeMovie = (event: any, newValue: any) => {
         if (newValue) {
             setMovieId(newValue.movieId);
         } else {
@@ -119,7 +132,7 @@ const SessionsComponent = () => {
         }
     }
 
-    const searchSessionByCinemaAndMovie = () => {
+    const searchSessionByMovie = () => {
         state.paging.pageNumber = 1;
         adjustQueryString();
     }
@@ -138,13 +151,13 @@ const SessionsComponent = () => {
                         <Typography variant="h3" className="display-5 fw-bold">Sessions</Typography>
                         <br/>
                         <Paper className="search session-search">
-                            <Autocomplete id="movie-select" getOptionLabel={(option: any) => option.title} value={movieId}
+                            <Autocomplete id="movie-select" getOptionLabel={(option: any) => option.title} value={movie}
                                           isOptionEqualToValue={(option: any, value: any) => option.title === value.title}
-                                          options={optionsMovie} onChange={changeMovieId} className="autocomplete-search"
+                                          options={optionsMovie} onChange={changeMovie} className="autocomplete-search"
                                           renderInput={(params) => (
                                               <TextField {...params} label="Movie" onChange={loadMovies}/>
                                           )}/>
-                            <IconButton className="search-icon" onClick={searchSessionByCinemaAndMovie}>
+                            <IconButton className="search-icon" onClick={searchSessionByMovie}>
                                 <SearchIcon/>
                             </IconButton>
                         </Paper>
@@ -175,7 +188,7 @@ const SessionsComponent = () => {
                                             <Typography variant="h5" className="link-element-in-grid">
                                                 <Link to={`/session/${session.sessionId}`} className="link">
                                                     Movie: {session.movie.title},
-                                                    Date and Time: {session.startTime} {session.endTime}
+                                                    Date and Time: {session.startTime}
                                                 </Link>
                                             </Typography>
                                         </Grid>

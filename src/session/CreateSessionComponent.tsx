@@ -44,6 +44,8 @@ const CreateSessionComponent = (setErrorMessage: any, setOpenError: any, setAcce
     const [loadedMovie, setLoadedMovie] = React.useState(false);
     const navigation = useNavigate();
 
+    React.useEffect(() => getScreens(), []);
+
     const getScreens = () => {
         screenAPI.getAllScreens(getScreensSuccess, failCreate, {
             pageNumber: 1,

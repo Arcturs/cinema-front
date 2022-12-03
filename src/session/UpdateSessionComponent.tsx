@@ -28,6 +28,10 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
         startTime: "",
         price: ""
     });
+    const [start, setStart] = React.useState({
+        date: "",
+        time: ""
+    });
     const [openUpdate, setOpenUpdate] = React.useState(false);
     const navigation = useNavigate();
     const [screens, setScreens] = React.useState([]);
@@ -41,6 +45,10 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
 
     const getScreensSuccess = (response: any) => {
         setScreens(response.data.data);
+        setStart({
+            date: state.startTime.split(' ')[0],
+            time: state.startTime.split(' ')[1]
+        })
     }
 
     const updateSession = () => {
@@ -52,10 +60,10 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
         });
         setErrorMessage(null);
         let updateBody = {
-            movieId: state.movieId,
-            screenId: state.auditoriumId,
-            startDate: state.movieStartDate,
-            startTime: state.movieStartTime,
+            movieId: state.movie.movieId,
+            screenId: state.screen.screenId,
+            startDate: start.date,
+            startTime: start.time,
             price: state.price
         };
         sessionAPI.updateSession(successUpdate, failureUpdate, sessionId, updateBody);
@@ -84,11 +92,15 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
         setValidationError(error.response.data);
     }
 
-    const changeScreenId = (event: any) => {
-        setState({
-            ...state,
-            screenId: event.target.value
-        });
+    const changeScreenId = (event: any, newValue: any) => {
+        setState((prevState: { screen: any; }) => ({
+            ...prevState,
+            screen: {
+                ...prevState.screen,
+                screenId: newValue.screenId,
+                screenNumber: newValue.screenNumber
+            }
+        }));
     }
 
     const change = (event: any) => {
@@ -96,6 +108,11 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
             ...state,
             [event.target.name]: event.target.value
         });
+    }
+
+    const getDate = (dateInString: string) => {
+        let dates = dateInString.split(" ")[0].split(".");
+        return new Date(+dates[2], +dates[1] - 1, +dates[0]);
     }
 
     return (
@@ -113,7 +130,7 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
                     <DialogTitle className="dialog-title">Update session</DialogTitle>
                     <DialogContent>
                         <Autocomplete id="auditorium-select" getOptionLabel={(option: any) => option.screenNumber}
-                                      value={state} options={screens} onChange={changeScreenId}
+                                      value={state.screen} options={screens} onChange={changeScreenId}
                                       isOptionEqualToValue={(option: any, value: any) => option.screenNumber === value.screenNumber}
                                       className="text-field d-flex justify-content-center"
                                       renderInput={(params) => (
@@ -124,24 +141,28 @@ const UpdateSessionComponent = (state: {[key: string]: any}, setState: any, sess
                             : null}
 
                         <DatePicker className="text-field d-flex justify-content-center" mask={"__.__.____"}
-                                    value={state.startDate}
-                                    label="Start date" onChange={(newValue: any) => {
-                            setState({
-                                ...state,
-                                startDate: format(newValue, "dd.MM.yyyy")
-                            });
-                        }} renderInput={(params) => <TextField className="text-field d-flex justify-content-center" {...params}/>}/>
+                                    value={getDate(start.date)}
+                                    label="Start date" onChange={(newValue: any) => setStart({
+                            ...start,
+                            date: format(newValue,"dd.MM.yyyy")})}
+                        renderInput={(params) => <TextField className="text-field d-flex justify-content-center" {...params}/>}/>
                         {validationError.startDate
                             ? <Alert severity="warning" className="alert">{validationError.startDate}</Alert>
                             : null}
 
                         {validationError.startTime
                             ? <TextField error className="text-field d-flex justify-content-center" id="outlined-basic"
-                                         label="Start time" variant="outlined" type="text" name="movieStartTime"
-                                         value={state.startTime} helperText={validationError.startTime} onChange={change}/>
+                                         label="Start time" variant="outlined" type="text" name="startTime"
+                                         value={start.time} helperText={validationError.startTime}
+                                         onChange={(event: any) => setStart({
+                                             ...start,
+                                             time: event.target.value})}/>
                             : <TextField className="text-field d-flex justify-content-center" id="outlined-basic"
-                                         name="movieStartTime" label="Start time" variant="outlined" type="text"
-                                         value={state.startTime} onChange={change}/>}
+                                         name="startTime" label="Start time" variant="outlined" type="text"
+                                         value={start.time}
+                                         onChange={(event: any) => setStart({
+                                             ...start,
+                                             time: event.target.value})}/>}
 
                         {validationError.price
                             ? <TextField error className="text-field d-flex justify-content-center" id="outlined-basic"
