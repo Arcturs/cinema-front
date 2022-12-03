@@ -15,6 +15,7 @@ import urlBuilder from "../helpers/UrlBuilder";
 import movieAPI from "../API/MovieAPI";
 import PaginationComponent from "../main/PaginationComponent";
 import tokenHelper from "../helpers/TokenHelper";
+import CreateSessionComponent from "./CreateSessionComponent";
 
 const SessionsComponent = () => {
     const [state, setState] = React.useState({
@@ -125,7 +126,7 @@ const SessionsComponent = () => {
 
     React.useEffect(() => getAllSessions(), []);
 
-    const createSessionComponent = createSessionComponent(setErrorMessage, setOpenError,
+    const createSessionComponent = CreateSessionComponent(setErrorMessage, setOpenError,
         setAccessMessage, setOpenAccess);
     const paginationComponent = PaginationComponent(state.paging, adjustQueryString);
 
@@ -138,7 +139,7 @@ const SessionsComponent = () => {
                         <br/>
                         <Paper className="search session-search">
                             <Autocomplete id="movie-select" getOptionLabel={(option: any) => option.title} value={movieId}
-                                          isOptionEqualToValue={(option: any, value: any) => option.movieId === value}
+                                          isOptionEqualToValue={(option: any, value: any) => option.title === value.title}
                                           options={optionsMovie} onChange={changeMovieId} className="autocomplete-search"
                                           renderInput={(params) => (
                                               <TextField {...params} label="Movie" onChange={loadMovies}/>
