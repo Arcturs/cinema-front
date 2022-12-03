@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import UserAPI from "../API/UserAPI";
+import tokenHelper from "../helpers/TokenHelper";
 
 const MenuComponent = () => {
 
@@ -84,17 +85,10 @@ const MenuComponent = () => {
                 </ul>
 
                 <div className="col-md-3 text-end">
-                    {user.roles && user.roles.some(element => JSON.stringify(element) === JSON.stringify({
-                        roleId: 1,
-                        roleName: "USER"
-                    }))
-                        ? user.roles && user.roles.some(element => JSON.stringify(element) === JSON.stringify({
-                            roleId: 2,
-                            roleName: "ADMIN"
-                        }))
-                            ? adminComponent
-                            : authorizedComponent
-                        : unauthorizedComponent}
+                    {tokenHelper.isUser()
+                        ? tokenHelper.isAdmin() ? adminComponent : authorizedComponent
+                        : unauthorizedComponent
+                    }
                 </div>
             </header>
         </div>
