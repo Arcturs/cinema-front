@@ -119,7 +119,7 @@ const SessionComponent = () => {
                                 .map((seat: { [key: string]: any }) => {
                                     return (
                                         <Checkbox icon={<EventSeatIcon/>} checkedIcon={<EventSeatIcon color="primary"/>}
-                                                  sx={{marginRight: '30px'}} disabled={!seat.isAvailable}
+                                                  sx={{marginRight: '20px'}} disabled={!seat.isAvailable}
                                                   value={seat.seat.seatId} onChange={chooseSeat}/>
                                     );
                                 })}
