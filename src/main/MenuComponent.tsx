@@ -66,6 +66,10 @@ const MenuComponent = () => {
 
     const adminComponent =
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><Button variant="outlined" size="small" className="btn btn-outline-primary me-2"
+                        href="/order/confirm-booking">
+                Confirm booking
+            </Button></li>
             <li><Button variant="contained" size="small" className="btn btn-primary" onClick={logout}
                         sx={{marginLeft: '20px'}}>
                 Logout

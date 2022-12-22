@@ -52,6 +52,16 @@ class OrderAPI {
             .then(onSuccess)
             .catch(onFail);
     }
+
+    confirmBooking(onSuccess: any, onFail: any, orderId: any, data: { [key: string]: any }) {
+        axios.post(`${process.env.REACT_APP_API_URL}/order/${orderId}/confirm-booking`, data, {
+            headers: {
+                Authorization: userAPI.authHeader()
+            }
+        })
+            .then(onSuccess)
+            .catch(onFail);
+    }
 }
 
 let orderAPI = new OrderAPI();

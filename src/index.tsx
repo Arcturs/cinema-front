@@ -12,6 +12,8 @@ import ScreensComponent from "./screen/ScreensComponent";
 import ScreenComponent from "./screen/ScreenComponent";
 import SessionsComponent from "./session/SessionsComponent";
 import SessionComponent from "./session/SessionComponent";
+import OrderComponent from "./order/OrderComponent";
+import ConfirmBookingComponent from "./order/ConfirmBookingComponent";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const pathname = window.location.pathname;
@@ -19,6 +21,7 @@ const pathname = window.location.pathname;
 root.render(
     <BrowserRouter>
         {pathname.includes('/login') || pathname.includes('/sign-up') || pathname.includes('/error')
+            || pathname.includes('/order')
             ? null : <MenuComponent/>}
         <Routes>
             <Route path="/" element={<MoviesComponent/>}/>
@@ -36,6 +39,9 @@ root.render(
 
             <Route path="session" element={<SessionsComponent/>}/>
             <Route path="session/:sessionId/" element={<SessionComponent/>}/>
+
+            <Route path="/order/:orderID" element={<OrderComponent/>}/>
+            <Route path="/order/confirm-booking" element={<ConfirmBookingComponent/>}/>
 
             <Route element={<ErrorComponent/>}/>
         </Routes>
