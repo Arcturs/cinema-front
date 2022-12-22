@@ -22,6 +22,16 @@ class OrderAPI {
             .then(onSuccess)
             .catch(onFail);
     }
+
+    cancelOrder(onSuccess: any, onFail: any, orderId: any) {
+        axios.delete(`${process.env.REACT_APP_API_URL}/order/${orderId}`, {
+            headers: {
+                Authorization: userAPI.authHeader()
+            }
+        })
+            .then(onSuccess)
+            .catch(onFail);
+    }
 }
 
 let orderAPI = new OrderAPI();
