@@ -12,6 +12,16 @@ class OrderAPI {
             .then(onSuccess)
             .catch(onFail);
     }
+
+    getOrderDetails(onSuccess: any, onFail: any, orderId: any) {
+        axios.get(`${process.env.REACT_APP_API_URL}/order/${orderId}`, {
+            headers: {
+                Authorization: userAPI.authHeader()
+            }
+        })
+            .then(onSuccess)
+            .catch(onFail);
+    }
 }
 
 let orderAPI = new OrderAPI();

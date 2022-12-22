@@ -21,17 +21,11 @@ const SessionComponent = () => {
         endTime: "",
         price: "",
         screen: {
-            screenId: "",
-            screenNumber: "",
-            rows: "",
-            seats: ""
+            screenNumber: ""
         },
         movie: {
-            movieId: "",
             description: "",
-            duration: "",
-            title: "",
-            rating: ""
+            title: ""
         },
         seatPlan: [
             {
