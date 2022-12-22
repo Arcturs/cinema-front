@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import orderAPI from "../API/OrderAPI";
 import tokenHelper from "../helpers/TokenHelper";
 import CancelOrderComponent from "./CancelOrderComponent";
+import BookOrderComponent from "./BookOrderComponent";
 
 const OrderComponent = () => {
 

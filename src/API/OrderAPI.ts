@@ -32,6 +32,16 @@ class OrderAPI {
             .then(onSuccess)
             .catch(onFail);
     }
+
+    bookOrder(onSuccess: any, onFail: any, orderId: any) {
+        axios.post(`${process.env.REACT_APP_API_URL}/order/${orderId}/book`, {
+            headers: {
+                Authorization: userAPI.authHeader()
+            }
+        })
+            .then(onSuccess)
+            .catch(onFail);
+    }
 }
 
 let orderAPI = new OrderAPI();
