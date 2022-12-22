@@ -25,7 +25,7 @@ class UserAPI{
     }
 
     refreshToken(onSuccess: any, onFail: any, token: string) {
-        axios.post(`${process.env.REACT_APP_API_URL}/user/refresh-token`, {
+        axios.post(`${process.env.REACT_APP_API_URL}/user/refresh-token`, "",{
             params: {
                 refreshToken: token
             }

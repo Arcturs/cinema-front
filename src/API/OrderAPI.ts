@@ -34,7 +34,17 @@ class OrderAPI {
     }
 
     bookOrder(onSuccess: any, onFail: any, orderId: any) {
-        axios.post(`${process.env.REACT_APP_API_URL}/order/${orderId}/book`, {
+        axios.post(`${process.env.REACT_APP_API_URL}/order/${orderId}/book`, "",{
+            headers: {
+                Authorization: userAPI.authHeader()
+            }
+        })
+            .then(onSuccess)
+            .catch(onFail);
+    }
+
+    payOrder(onSuccess: any, onFail: any, orderId: any, data: { [key: string]: any }) {
+        axios.post(`${process.env.REACT_APP_API_URL}/order/${orderId}/pay`, data, {
             headers: {
                 Authorization: userAPI.authHeader()
             }
