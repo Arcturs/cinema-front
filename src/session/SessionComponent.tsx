@@ -10,6 +10,7 @@ import ResourceRemovalDialogComponent from "../main/ResourceRemovalDialogCompone
 import tokenHelper from "../helpers/TokenHelper";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
 import UpdateSessionComponent from "./UpdateSessionComponent";
+import orderAPI from "../API/OrderAPI";
 
 const SessionComponent = () => {
 
@@ -20,17 +21,11 @@ const SessionComponent = () => {
         endTime: "",
         price: "",
         screen: {
-            screenId: "",
-            screenNumber: "",
-            rows: "",
-            seats: ""
+            screenNumber: ""
         },
         movie: {
-            movieId: "",
             description: "",
-            duration: "",
-            title: "",
-            rating: ""
+            title: ""
         },
         seatPlan: [
             {
@@ -69,9 +64,16 @@ const SessionComponent = () => {
     }
 
     const failure = (error: any) => {
-        if (error.response.status == 404) {
+        if (error.response.status === 404) {
             navigation('/error');
             navigation(0);
+            return;
+        }
+        if (error.response.status === 403) {
+            setAccessMessage(error.response.data);
+            setOpenAccess(true);
+            localStorage.setItem('token', "");
+            localStorage.setItem('refreshToken', "");
             return;
         }
         setErrorMessage(error.response.data.message);
@@ -79,18 +81,23 @@ const SessionComponent = () => {
     }
 
     const chooseSeat = (event: any) => {
-        if (seats.includes(event.target.value)) {
-            let index = bookedSeats.indexOf(event.target.value, 0);
-            bookedSeats.splice(index, 1);
-        } else {
-            bookedSeats.push(event.target.value);
-        }
+        bookedSeats.push(event.target.value);
     }
 
-    const submit = (event: any) => {
+    const bookSeats = (event: any) => {
         event.preventDefault();
         setBookedSeats(bookedSeats);
-        //book seats
+        let seatPlan = {
+            sessionId: sessionId,
+            seatPlanForSessionIds: bookedSeats
+        }
+        orderAPI.bookSeats(bookSuccess, failure, seatPlan);
+    }
+
+    const bookSuccess = (response: any) => {
+        setSeats([] as any);
+        navigation(`/order/${response.data.orderId}`);
+        navigation(0);
     }
 
     React.useEffect(() => getSession(), []);
@@ -101,7 +108,7 @@ const SessionComponent = () => {
         'session', '/session', setErrorMessage, setOpenError, setAccessMessage, setOpenAccess);
 
     const seatPLanComponent =
-        <form onSubmit={submit}>
+        <form onSubmit={bookSeats}>
 
             {tokenHelper.isUser()
                 ? <Button type="submit" className="btn btn-outline-secondary">Choose seat/seats</Button>
@@ -120,7 +127,7 @@ const SessionComponent = () => {
                                     return (
                                         <Checkbox icon={<EventSeatIcon/>} checkedIcon={<EventSeatIcon color="primary"/>}
                                                   sx={{marginRight: '20px'}} disabled={!seat.isAvailable}
-                                                  value={seat.seat.seatId} onChange={chooseSeat}/>
+                                                  value={seat.seatPlanForSessionId} onChange={chooseSeat}/>
                                     );
                                 })}
                         </div>
