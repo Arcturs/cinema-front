@@ -40,7 +40,7 @@ root.render(
             <Route path="session" element={<SessionsComponent/>}/>
             <Route path="session/:sessionId/" element={<SessionComponent/>}/>
 
-            <Route path="/order/:orderID" element={<OrderComponent/>}/>
+            <Route path="/order/:orderId" element={<OrderComponent/>}/>
             <Route path="/order/confirm-booking" element={<ConfirmBookingComponent/>}/>
 
             <Route element={<ErrorComponent/>}/>

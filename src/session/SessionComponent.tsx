@@ -81,12 +81,7 @@ const SessionComponent = () => {
     }
 
     const chooseSeat = (event: any) => {
-        if (seats.includes(event.target.value)) {
-            let index = bookedSeats.indexOf(event.target.value, 0);
-            bookedSeats.splice(index, 1);
-        } else {
-            bookedSeats.push(event.target.value);
-        }
+        bookedSeats.push(event.target.value);
     }
 
     const bookSeats = (event: any) => {
@@ -94,7 +89,7 @@ const SessionComponent = () => {
         setBookedSeats(bookedSeats);
         let seatPlan = {
             sessionId: sessionId,
-            seatPlanForSessionIds: seats
+            seatPlanForSessionIds: bookedSeats
         }
         orderAPI.bookSeats(bookSuccess, failure, seatPlan);
     }
